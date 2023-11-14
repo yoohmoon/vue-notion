@@ -5,20 +5,28 @@
 
     <script type="module">
       import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+      import SiteHeader from './SiteHeader.js';
+      import SiteMain from './SiteMain.js';
+      import SiteFooter from './SiteFooter.js';
 
       const root = {
-        template: `<h1>안녕하세요</h1>
+        template: `<h1 v-bind:class="className">안녕하세요 {{ExportedName}}</h1>
         <SiteHeader></SiteHeader>
+        <SiteMain/>
+        <SiteFooter/>
         `,
+        setup() {
+          const greet = 'Hello';
+          const className = 'fontBig';
+          return { ExportedName: greet, className };
+        },
       };
-
-      const SiteHeader = { template: '<div>Header</div>' };
-      const SiteMain = { template: '<div>Main</div>' };
-      const SiteFooter = { template: '<div>Footer</div>' };
 
       const app = createApp(root);
 
       app.component('SiteHeader', SiteHeader);
+      app.component('SiteMain', SiteMain);
+      app.component('SiteFooter', SiteFooter);
 
       app.mount('#app');
       //  use : 외부 라이브러리를 사용하겠다는 의미
